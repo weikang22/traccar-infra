@@ -28,6 +28,8 @@ resource "aws_instance" "traccar" {
 
   key_name = aws_key_pair.traccar.key_name
 
+  user_data = file("scripts/bootstrap.sh")
+
   tags = {
     Name = "traccar-server"
   }
