@@ -14,3 +14,27 @@ variable "ssh_cidr" {
   description = "IP address allowed to SSH"
   type        = string
 }
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "subnet_cidr" {
+  description = "CIDR block for the subnet"
+  type        = string
+  default     = "10.0.1.0/24"
+}
+
+variable "ebs_volume_size" {
+  description = "Size of EBS volume"
+  type        = number
+  default     = 8
+}
+
+variable "ebs_volume_type" {
+  description = "Type of EBS volume"
+  type        = string
+  default     = "gp3"
+}

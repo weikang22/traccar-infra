@@ -23,14 +23,37 @@ sudo systemctl start docker
 
 usermod -aG docker ubuntu
 
+# EBS volume mount for data persistence
+
+DEVICE="/dev/nvme1n1"
+MOUNT_POINT="/opt/traccar/data"
+
+mkdir -p $MOUNT_POINT
+
+if ! blkid $DEVICE; then
+    mkfs.ext4 $DEVICE
+fi
+
+UUID=$(blkid -s UUID -o value $DEVICE)
+
+if ! grep -q $UUID /etc/fstab; then
+    echo "UUID=$UUID $MOUNT_POINT ext4 defaults,nofail 0 2" >> /etc/fstab
+fi
+
+sudo systemctl daemon-reload
+
+sudo mount -a
+
 # run traccar container
 
 sudo apt install -y git
 
-git clone https://github.com/weikang22/traccar-dockercompose.git /opt/traccar
+git clone https://github.com/weikang22/traccar-dockercompose.git /opt/traccar/docker
 
-mkdir -p /opt/traccar/{conf,logs,data}
+mkdir -p /opt/traccar/{conf,logs}
 
-cd /opt/traccar
+sudo chown -R ubuntu:ubuntu /opt/traccar
+
+cd /opt/traccar/docker
 
 docker compose up -d
