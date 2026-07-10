@@ -3,7 +3,7 @@
 
 <properties>
     <entry key='database.driver'>org.mariadb.jdbc.Driver</entry>
-    <entry key='database.url'>jdbcmariadb://database:3306/traccar</entry>
+    <entry key='database.url'>jdbc:mariadb://database:3306/traccar</entry>
     <entry key='database.user'>traccar</entry>
     <entry key='database.password'>password</entry>
 </properties>
