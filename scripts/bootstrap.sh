@@ -46,14 +46,14 @@ sudo mount -a
 
 # run traccar container
 
-sudo apt install -y git
+curl -fsSL https://raw.githubusercontent.com/weikang22/traccar-infra/main/docker-compose.yml -o /opt/traccar/docker-compose.yml
 
-git clone https://github.com/weikang22/traccar-dockercompose.git /opt/traccar/docker
+mkdir -p /opt/traccar/{conf,logs,database}
 
-mkdir -p /opt/traccar/{conf,logs}
+curl -fsSL https://raw.githubusercontent.com/weikang22/traccar-infra/main/traccar.xml -o /opt/traccar/conf/traccar.xml
 
 sudo chown -R ubuntu:ubuntu /opt/traccar
 
-cd /opt/traccar/docker
+cd /opt/traccar
 
 docker compose up -d
