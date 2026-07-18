@@ -1,3 +1,9 @@
+variable "project_name" {
+  description = "Project name"
+  type        = string
+  default     = "traccar"
+}
+
 variable "aws_region" {
   description = "Default region for provider"
   type        = string
