@@ -17,32 +17,9 @@ variable "aws_region" {
 }
 
 variable "availability_zone" {
-  description = "Availability zone for the EC2 instance"
+  description = "Availability zone for the EBS volume"
   type        = string
   default     = "eu-west-2a"
-}
-
-variable "instance_type" {
-  description = "ec2 instance type"
-  type        = string
-  default     = "t3.micro"
-}
-
-variable "ssh_cidr" {
-  description = "IP address allowed to SSH"
-  type        = string
-}
-
-variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "subnet_cidr" {
-  description = "CIDR block for the subnet"
-  type        = string
-  default     = "10.0.1.0/24"
 }
 
 variable "ebs_volume_size" {
