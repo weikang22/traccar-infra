@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
     
     volumes:
-      - /opt/traccar/database:/var/lib/mysql
+      - /opt/traccar/data:/var/lib/mysql
 
   traccar: #service name
     image: traccar/traccar:6.14.5 #docker image and version tag
