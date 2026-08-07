@@ -26,7 +26,7 @@ usermod -aG docker ubuntu
 # EBS volume mount for data persistence
 
 DEVICE="/dev/nvme1n1"
-MOUNT_POINT="/opt/traccar/data"
+MOUNT_POINT="/opt/traccar"
 
 mkdir -p $MOUNT_POINT
 

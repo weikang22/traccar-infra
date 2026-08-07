@@ -12,6 +12,6 @@ resource "aws_secretsmanager_secret" "traccar_database" {
   }
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = false #change to true in production to prevent accidental deletion of secrets
   }
 }

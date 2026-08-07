@@ -17,7 +17,7 @@ variable "aws_region" {
 }
 
 variable "availability_zone" {
-  description = "Availability zone for the EC2 instance"
+  description = "Availability zone for the infrastructure"
   type        = string
   default     = "eu-west-2a"
 }

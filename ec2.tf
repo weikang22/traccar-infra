@@ -26,6 +26,7 @@ resource "aws_instance" "traccar" {
   vpc_security_group_ids      = [aws_security_group.traccar.id]
   associate_public_ip_address = true
   availability_zone           = var.availability_zone
+  user_data_replace_on_change = true
 
   key_name = aws_key_pair.traccar.key_name
 
@@ -38,7 +39,7 @@ resource "aws_instance" "traccar" {
 
 resource "aws_volume_attachment" "traccar_data" {
   device_name = "/dev/sdf"
-  volume_id   = aws_ebs_volume.traccar_data.id
+  volume_id   = data.terraform_remote_state.persistent.outputs.volume_id
   instance_id = aws_instance.traccar.id
 
   force_detach = false
