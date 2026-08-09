@@ -18,6 +18,11 @@ services:
     container_name: traccar #container name
     restart: unless-stopped #restart unless manually stopped
 
+    environment:
+      CONFIG_USE_ENVIRONMENT_VARIABLES: "true" #enable environment variable configuration
+      DATABASE_USER: ${MARIADB_USER}
+      DATABASE_PASSWORD: ${MARIADB_PASSWORD}
+
     depends_on:
       - database
     
