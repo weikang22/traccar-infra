@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eux
+set -eu
 
 sudo apt update -y && sudo apt upgrade -y
 
@@ -43,6 +43,40 @@ fi
 sudo systemctl daemon-reload
 
 sudo mount -a
+
+# retrieve secrets from AWS secrets manager and create .env file for docker-compose yaml
+
+sudo apt-get install -y unzip jq
+
+sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+
+sudo unzip /tmp/awscliv2.zip -d /tmp
+
+sudo /tmp/aws/install
+
+AWS_REGION="eu-west-2"
+SECRET_NAME="traccar/dev/database"
+
+SECRET_JSON=$(aws secretsmanager get-secret-value \
+    --secret-id "$SECRET_NAME" \
+    --region "$AWS_REGION" \
+    --query SecretString \
+    --output text)
+
+DB_NAME=$(printf '%s' "$SECRET_JSON" | jq -er '.database')
+DB_USER=$(printf '%s' "$SECRET_JSON" | jq -er '.username')
+DB_PASSWORD=$(printf '%s' "$SECRET_JSON" | jq -er '.password')
+DB_ROOT_PASSWORD=$(printf '%s' "$SECRET_JSON" | jq -er '.root_password')
+
+cat > /opt/traccar/.env <<EOF
+MARIADB_DATABASE=${DB_NAME}
+MARIADB_USER=${DB_USER}
+MARIADB_PASSWORD=${DB_PASSWORD}
+MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+EOF
+
+sudo chown root:root /opt/traccar/.env
+sudo chmod 600 /opt/traccar/.env
 
 # run traccar container
 

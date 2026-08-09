@@ -30,6 +30,8 @@ resource "aws_instance" "traccar" {
 
   key_name = aws_key_pair.traccar.key_name
 
+  iam_instance_profile = aws_iam_instance_profile.traccar.name
+
   user_data = file("scripts/bootstrap.sh")
 
   tags = {
