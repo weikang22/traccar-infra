@@ -5,11 +5,11 @@ services:
     restart: unless-stopped
 
     environment:
-      MYSQL_DATABASE: traccar
-      MYSQL_USER: traccar
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: rootpassword
-    
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+
     volumes:
       - /opt/traccar/database:/var/lib/mysql
 
