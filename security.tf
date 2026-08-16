@@ -18,7 +18,7 @@ resource "aws_security_group" "traccar" {
     to_port     = 8082
     protocol    = "tcp"
 
-    cidr_blocks = [var.ssh_cidr]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress { # required to specifically re-create as Terrafrom removes the default allow all egress
